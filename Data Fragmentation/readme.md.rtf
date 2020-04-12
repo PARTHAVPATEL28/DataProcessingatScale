@@ -1,0 +1,96 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red51\green51\blue51;}
+{\*\expandedcolortbl;;\cssrgb\c25882\c25882\c25882;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\deftab720
+\pard\pardeftab720\sl420\sa400\partightenfactor0
+
+\f0\fs32 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 The required task is to simulate data partitioning approaches on-top of an open source relational database management system (i.e., PostgreSQL).A set of Python functions that load the input data into a relational table, partition the table using different horizontal fragmentation approaches, and insert new tuples into the right fragment. A detailed explanation about round-robin partitioning and range partitioning can be found here:\'a0{\field{\*\fldinst{HYPERLINK "https://www.ibm.com/support/knowledgecenter/en/SSZJPZ_11.7.0/com.ibm.swg.im.iis.ds.parjob.dev.doc/topics/partitioning.html"}}{\fldrslt \ul https://www.ibm.com/support/knowledgecenter/en/SSZJPZ_11.7.0/com.ibm.swg.im.iis.ds.parjob.dev.doc/topics/partitioning.html\ulnone \
+}}Input Data. The input data is a Movie Rating data set collected from the MovieLens web site (http://movielens.org). The raw data is available in the file ratings.dat.
+\fs28 \
+
+\fs32 The rating.dat file contains 10 million ratings and 100,000 tag applications applied to 10,000 movies by 72,000 users. Each line of this file represents one rating of one movie by one user, and has the following format:
+\fs28 \
+
+\fs32 UserID::MovieID::Rating::Timestamp
+\fs28 \
+
+\fs32 Ratings are made on a 5-star scale, with half-star increments. Timestamps represent seconds since midnight Coordinated Universal Time (UTC) of January 1, 1970. A sample of the file contents is given below:
+\fs28 \
+
+\fs32 1::122::5::838985046
+\fs28 \
+
+\fs32 1::185::5::838983525
+\fs28 \
+
+\fs32 1::231::5::838983392
+\fs28 \
+\'a0\
+
+\fs32 Required Task. Below are the steps you need to follow to fulfill this assignment:
+\fs28 \
+
+\fs32 1. Implement a Python function Load Ratings() that takes a file system path that contains the rating.dat file as input. Load Ratings() then load the rating.dat content into a table (saved in PostgreSQL) named Ratings that has the following schema
+\fs28 \
+
+\fs32 UserID(int) \'96 MovieID(int) \'96 Rating(float)
+\fs28 \
+
+\fs32 2. Implement a Python function Range_Partition() that takes as input: (1) the Ratings table stored in PostgreSQL and (2) an integer value N; that represents the number of partitions. Range_Partition() then generates N horizontal fragments of the Ratings table and store them in PostgreSQL. The algorithm should partition the ratings table based on N uniform ranges of the Rating attribute.
+\fs28 \
+
+\fs32 3. Implement a Python function RoundRobin_Partition() that takes as input: (1) the Ratings table stored in PostgreSQL and (2) an integer value N; that represents the number of partitions. The function then generates N horizontal fragments of the Ratings table and stores them in PostgreSQL. The algorithm should partition the ratings table using the round robin partitioning approach (explained in class).
+\fs28 \
+
+\fs32 4. Implement a Python function RoundRobin_Insert() that takes as input: (1) Ratings table stored in PostgreSQL, (2) UserID, (3) ItemID, (4) Rating. RoundRobin_Insert() then inserts a new tuple to the Ratings table and the right fragment based on the round robin approach.
+\fs28 \
+
+\fs32 5. Implement a Python function Range_Insert() that takes as input: (1) Ratings table stored in Post- greSQL (2) UserID, (3) ItemID, (4) Rating. Range_Insert() then inserts a new tuple to the Ratings table and the correct fragment (of the partitioned ratings table) based upon the Rating value.
+\fs28 \
+
+\fs32 6. Implement function Delete_Partitions() for your testing convenience. It will not be graded.
+\fs28 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl360\sa200\partightenfactor0
+\ls1\ilvl0\cf2 \
+\pard\pardeftab720\sl480\sa240\partightenfactor0
+
+\fs32 \cf2 Partitioning Questions:\
+\pard\pardeftab720\sl420\sa400\partightenfactor0
+\cf2 The number of partitions here refer to the number of tables to be created. For rating values in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
+\fs28 \
+
+\fs32 Case N = 1,
+\fs28 \
+
+\fs32 One table containing all the values.
+\fs28 \
+\'a0\
+
+\fs32 Case N = 2, Two tables,
+\fs28 \
+
+\fs32 Partition 0 has values [0,2.5]
+\fs28 \
+
+\fs32 Partition 1 has values (2.5,5]
+\fs28 \
+\'a0\
+
+\fs32 Case N = 3, Three tables,
+\fs28 \
+
+\fs32 Partition 0 has values [0, 1.67]
+\fs28 \
+
+\fs32 Partition 1 has values (1.67, 3.34]
+\fs28 \
+
+\fs32 Partition 2 has values (3.34, 5]
+\fs28 \
+\'a0\
+}
